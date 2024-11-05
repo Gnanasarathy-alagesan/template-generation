@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
+    <script src="{{ url_for('static',filename='js/home.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Template Generator</h1>
+        <form id="template-form">
+            <div class="form-group">
+                <label for="fileUpload">Upload Master File</label>
+                <input type="file" class="form-control-file" id="fileUpload" accept=".xlsx" multiple>
+            </div>
+            <button type="button" class="btn btn-success" id="generateBtn" onclick="srcFileUpload(); return false;">Generate Files</button>
+            <div class="centerText" id="system-config-msg"></div>
+        </form>
+    </div>
+</body>
+</html>
