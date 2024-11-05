@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import os, sys
 from werkzeug.utils import secure_filename
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from main import intial_prep, prepare_form_u
+from utils.main import intial_prep, prepare_form_u
 
 app = Flask(__name__)
 
@@ -11,7 +11,7 @@ def home():
     return render_template('home.html')
 
 base_location = os.getcwd()
-SRC_FOLDER = f'{base_location}/source'
+SRC_FOLDER = f'{base_location}/app/source'
 app.config['UPLOAD_FOLDER'] = SRC_FOLDER
 
 @app.route('/upload', methods=['POST'])
