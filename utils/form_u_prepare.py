@@ -43,7 +43,6 @@ class FormU():
 
             for key, value in MAPPING.items():
                 cell_coordinate = f"{key}{row_number}"
-                print(cell_coordinate, row[value])
                 self.ws[cell_coordinate] = row[value]
                 self.ws[cell_coordinate].font = self.font_style
             self.ws.row_dimensions[row_number].height = self.row_height

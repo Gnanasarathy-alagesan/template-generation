@@ -16,8 +16,9 @@
                 <label for="fileUpload">Upload Master File</label>
                 <input type="file" class="form-control-file" id="fileUpload" accept=".xlsx" multiple>
             </div>
-            <button type="button" class="btn btn-success" id="generateBtn" onclick="srcFileUpload(); return false;">Generate Files</button>
+            <button type="button" class="btn btn-success" id="uploadBtn" onclick="srcFileUpload(); return false;">Upload</button>
             <div class="centerText" id="system-config-msg"></div>
+            <button type="button" class="btn btn-success" id="generateBtn" onclick="generateFiles(); return false;">Generate</button>
         </form>
     </div>
 </body>

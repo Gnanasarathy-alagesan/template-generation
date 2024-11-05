@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
-import os
+import os, sys
 from werkzeug.utils import secure_filename
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from main import intial_prep, prepare_form_u
 
 app = Flask(__name__)
 
@@ -37,6 +39,16 @@ def upload_file():
         print(e)
         return str(e), 500
 
+@app.route('/generate', methods=['GET'])
+def generate_file():
+    try:
+        master_df = intial_prep()
+        prepare_form_u(master_df)
+        return 'File Uploaded successfully', 200
+    
+    except Exception as e:
+        print(e)
+        return str(e), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

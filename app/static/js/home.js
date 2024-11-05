@@ -45,3 +45,31 @@ function displayFailureDialog(id, msg){
     document.getElementById(id).innerHTML = msg;
     document.getElementById(id).style.color = "red";
     }
+
+
+function generateFiles() {
+
+    console.log("generating files")
+
+        var xhr = new XMLHttpRequest();
+
+        // Specify the type of request (GET) and the relative URL (e.g., '/api/data')
+        xhr.open('GET', '/generate', true);
+
+        // Set up what happens when the request is done
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("generate success")
+                } else {
+                    console.log("generate Failed")
+            };
+        };
+
+        // Handle network errors
+        xhr.onerror = function () {
+            console.log('Request failed due to a network error.');
+        };
+
+        // Send the request
+        xhr.send();
+    }
