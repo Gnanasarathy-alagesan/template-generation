@@ -8,8 +8,8 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
-
-SRC_FOLDER = '../source'
+base_location = os.getcwd()
+SRC_FOLDER = f'{base_location}/source'
 app.config['UPLOAD_FOLDER'] = SRC_FOLDER
 
 @app.route('/upload', methods=['POST'])
