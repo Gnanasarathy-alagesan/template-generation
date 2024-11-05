@@ -7,18 +7,19 @@ from utils.helper_util import *
 from utils.form_u_prepare import FormU
 
 # getting base path
-base_location = os.getcwd()
+base_location = os.path.dirname(__file__).split('/app/')[0]+'/app'
+print(base_location)
 
 #assigning actual path to variables
-template = f"{base_location}/app/{TEMPLATE}/"
-stage = f"{base_location}/app/{STAGE}/"
-output = f"{base_location}/app/{OUTPUT}/"
+template = f"{base_location}/{TEMPLATE}/"
+stage = f"{base_location}/{STAGE}/"
+output = f"{base_location}/{OUTPUT}/"
 
 def intial_prep():
 # copy paste from template folder to stage
     copy_all_files(template, stage)
 
-    source = base_location + f"/app/{SOURCE}/master.xlsx"
+    source = base_location + f"/{SOURCE}/master.xlsx"
 
     master_df = pd.read_excel(source)
     master_df["Full Name"] = master_df["First Name"] + ' ' + master_df["Last Name"]
