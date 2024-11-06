@@ -7,7 +7,7 @@ from utils.helper_util import *
 from utils.form_u_prepare import FormU
 
 # getting base path
-base_location = os.path.dirname(__file__).split('/app/')[0]+'/app'
+base_location = os.getcwd()
 print(base_location)
 
 #assigning actual path to variables

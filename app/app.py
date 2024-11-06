@@ -10,7 +10,8 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
-base_location = os.path.dirname(__file__).split('/template-generation/app/')[0]
+# base_location = os.path.dirname(__file__).split('/template-generation/app/')[0]
+base_location = os.getcwd()
 SRC_FOLDER = f'{base_location}/source'
 app.config['UPLOAD_FOLDER'] = SRC_FOLDER
 
