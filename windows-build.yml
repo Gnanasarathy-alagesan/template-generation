@@ -1,0 +1,45 @@
+name: Build Windows Executable
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'  
+
+      - name: Install dependencies
+        run: |
+          cd app  
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build with PyInstaller
+        run: |
+          cd app  
+          pip install pyinstaller
+          pyinstaller --onefile \
+            --add-data "utils/*;utils" \
+            --add-data "templates/*;templates" \
+            --add-data "static/*;static" \
+            --add-data "source/*;source" \
+            --add-data "template/*;template" \
+            --add-data "constants/*;constants" \
+            --add-data "stage/*;stage" \
+            app.py
+
+      - name: Upload executable as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: FlaskAppExecutable
+          path: app/dist/app.exe  
