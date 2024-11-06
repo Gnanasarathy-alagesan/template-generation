@@ -3,41 +3,35 @@ name: Build Windows Executable
 on:
   push:
     branches:
-      - main  
+      - main  # Or your branch
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
-      - name: Check out the repository
-        uses: actions/checkout@v2
+      # Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v3  
 
+      # Set up Python environment
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4  
         with:
-          python-version: '3.8'  
+          python-version: '3.8'
 
+      # Install dependencies and build executable
       - name: Install dependencies
         run: |
-          cd app  
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+          
       - name: Build with PyInstaller
         run: |
-          cd app  
+          cd app
           pip install pyinstaller
-          pyinstaller --onefile \
-            --add-data "utils/*;utils" \
-            --add-data "templates/*;templates" \
-            --add-data "static/*;static" \
-            --add-data "source/*;source" \
-            --add-data "template/*;template" \
-            --add-data "constants/*;constants" \
-            --add-data "stage/*;stage" \
-            app.py
+          pyinstaller --onefile --add-data "utils/*;utils" --add-data "templates/*;templates" --add-data "static/*;static" --add-data "source/*;source" --add-data "template/*;template" --add-data "constants/*;constants" --add-data "stage/*;stage" app.py
 
+      # Upload executable as artifact
       - name: Upload executable as artifact
         uses: actions/upload-artifact@v3
         with:
