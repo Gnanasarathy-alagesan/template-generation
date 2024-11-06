@@ -17,11 +17,11 @@ function srcFileUpload() {
           xhr.onload = function() {
               if (xhr.status === 200) {
                 console.log("success")
-                displaySuccessDialog("system-config-msg", "File uploaded successfully")
-                  // File uploaded successfully, you can handle the response here
+                displaySuccessDialog("file-upload-msg", "File uploaded successfully")
+                  // File uploaded successfully
               } else {
                   // Error handling
-                  displayFailureDialog("system-config-msg", "Error uploading file")
+                  displayFailureDialog("file-upload-msg", "Error uploading file")
               }
           };
   
@@ -29,7 +29,7 @@ function srcFileUpload() {
   
       } else {
           console.log('No file selected');
-          displayFailureDialog("system-config-msg", "Source File Required")
+          displayFailureDialog("file-upload-msg", "Source File Required")
           return;
       }
     }
@@ -60,16 +60,41 @@ function generateFiles() {
         xhr.onload = function () {
             if (xhr.status == 200) {
                 console.log("generate success")
+                displaySuccessDialog("generate-files-msg", "Templates generated successfully")
                 } else {
                     console.log("generate Failed")
+                    displayFailureDialog("generate-files-msg", "Templates generation Failed")
             };
         };
 
         // Handle network errors
         xhr.onerror = function () {
             console.log('Request failed due to a network error.');
+            displayFailureDialog("generate-files-msg", "Request failed due to a network error.")
         };
 
         // Send the request
         xhr.send();
+    }
+
+function validateSource() {
+
+    console.log("checking source")
+
+            // Perform AJAX request to upload file
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/validate', true);
+    
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                console.log("success")
+                displaySuccessDialog("validate-source-msg", "Validation done")
+                    
+                } else {
+                    displayFailureDialog("validate-source-msg", "Source file(s) missing")
+                }
+            };
+    
+            xhr.send()
+    
     }

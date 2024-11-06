@@ -17,8 +17,11 @@
                 <input type="file" class="form-control-file" id="fileUpload" accept=".xlsx" multiple>
             </div>
             <button type="button" class="btn btn-success" id="uploadBtn" onclick="srcFileUpload(); return false;">Upload</button>
-            <div class="centerText" id="system-config-msg"></div>
-            <button type="button" class="btn btn-success" id="generateBtn" onclick="generateFiles(); return false;">Generate</button>
+            <div class="centerText" id="file-upload-msg"></div>
+            <button type="button" class="btn btn-success" id="validateSrcBtn" onclick="validateSource(); return false;">Validate source</button>
+            <div class="centerText" id="validate-source-msg"></div>
+            <button type="button" class="btn btn-success" id="prepareTemplateBtn" onclick="generateFiles(); return false;">Generate templates</button>
+            <div class="centerText" id="generate-files-msg"></div>
         </form>
     </div>
 </body>

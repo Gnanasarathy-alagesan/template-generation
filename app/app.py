@@ -50,6 +50,35 @@ def generate_file():
     except Exception as e:
         print(e)
         return str(e), 500
+    
+@app.route('/validate', methods=['GET'])
+def validate_src():
+    try:
+        src_file_list = ["master.xlsx"]
+        directory = app.config['UPLOAD_FOLDER']
+
+        existing_files = os.listdir(directory)
+        print("existing files:")
+        print(existing_files)
+        print("directory:")
+        print(directory)
+    
+        # Check if each file in file_list exists in the directory
+        file_status = {file_name: file_name in existing_files for file_name in src_file_list}
+
+        print("file status:")
+        print(file_status)
+
+        if all(file_status.values()):
+            return 'Source file(s) present', 200
+        else:
+            return 'Some files are missing.', 404
+    except FileNotFoundError:
+        print("Directory not found.")
+        return str(e), 404
+    except Exception as e:
+        print(e)
+        return str(e), 500
 
 if __name__ == '__main__':
     app.run(debug=False)
