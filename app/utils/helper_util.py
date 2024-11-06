@@ -61,3 +61,21 @@ def copy_all_files(src_dir, dst_dir):
         print(f"Source directory not found: {src_dir}")
     except Exception as e:
         print(f"Error occurred: {e}")
+
+
+def date_format(date, format):
+    try:
+        return date.strftime(format)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+
+def get_columns(map_dict):
+    values = []
+    for value in map_dict.values():
+        if type(value) == dict:
+            values.append(value.get("header"))
+        else:
+            values.append(value)
+    return values
+
+
