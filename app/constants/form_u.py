@@ -1,6 +1,9 @@
 from openpyxl.styles import Border, Side, Font
 import sys, os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+
 from utils.helper_util import date_format
 ROW_HEIGHT = 30
 BORDER = Border(

@@ -1,7 +1,9 @@
 # importing packages
 import pandas as pd
 import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
 from constants.generic import *
 from constants.master import COLUMNS, LOCATION
 from utils.helper_util import *
