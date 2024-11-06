@@ -14,6 +14,7 @@ base_location = os.getcwd()
 
 def intial_prep():
     # copy paste from template folder to stage
+    os.makedirs(f"{base_location}/{SOURCE}", exist_ok=True)
     source = base_location + f"/{SOURCE}/master.xlsx"
     master_df = pd.read_excel(source)
     master_df.columns = COLUMNS

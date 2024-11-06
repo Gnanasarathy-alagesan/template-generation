@@ -21,6 +21,8 @@ class FormU():
         self.base_location = base_location
         self.office_location = office_location
         self.file_name = template_file
+        os.makedirs(f"{self.base_location}/{STAGE}", exist_ok=True)
+        os.makedirs(f"{self.base_location}/{OUTPUT}", exist_ok=True)
         self.template_file = f"{self.base_location}/{TEMPLATE}/{template_file}"
         self.stage_file = f"{self.base_location}/{STAGE}/{template_file}"
         self.output_file = f"{self.base_location}/{OUTPUT}/{office.get(office_location.upper())}-{template_file}"
