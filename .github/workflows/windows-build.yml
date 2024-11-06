@@ -16,11 +16,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
+          python-version: '3.9'  # Ensuring the correct Python version
+
+      - name: Upgrade pip
+        run: |
+          python -m pip install --upgrade pip
 
       - name: Install dependencies
         run: |
-          pip install -r app/requirements.txt  # Correct path to the requirements.txt inside the app folder
+          pip install -r app/requirements.txt
 
       - name: Build with PyInstaller
         run: |
