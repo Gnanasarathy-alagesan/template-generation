@@ -17,9 +17,7 @@ app.config['UPLOAD_FOLDER'] = SRC_FOLDER
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    print(base_location)
     try:
-    
         # Handle file upload
         if 'srcFile' not in request.files:
             print("No file part")
