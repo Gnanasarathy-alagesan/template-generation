@@ -6,6 +6,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from constants.generic import Office
 from constants.form_u import *
+from utils.helper_util import get_columns
 from openpyxl import load_workbook
 from openpyxl.styles import Side
 
@@ -24,16 +25,10 @@ class FormU():
         self.row_height = 30
         self.font_style = FONT_STYLE
     
-    def sample(self):
-        print(self.file_location)
-        print(self.office_location)
-        print(self.output_path)
-    
-
     def populate(self):
         self.wb = load_workbook(self.file_location)
         self.ws = self.wb.active
-        columns = list(MAPPING.values())
+        columns = get_columns(MAPPING)
         filtered_df = self.master_df[columns]
         for index, row in filtered_df.iterrows():
             row_number = START_ROW + index
@@ -42,8 +37,16 @@ class FormU():
             self.ws[cell_coordinate].font = self.font_style
 
             for key, value in MAPPING.items():
-                cell_coordinate = f"{key}{row_number}"
-                self.ws[cell_coordinate] = row[value]
+                column = key
+                cell_coordinate = f"{column}{row_number}"
+                if type(value) == dict:
+                    header = value.get('header')
+                    function = value.get('function')
+                    params = value.get("params")
+                    self.ws[cell_coordinate] = function(row[header], *params)
+                else:
+                    header = value
+                    self.ws[cell_coordinate] = row[header]
                 self.ws[cell_coordinate].font = self.font_style
             self.ws.row_dimensions[row_number].height = self.row_height
             for col in range(1, self.ws.max_column + 1):
