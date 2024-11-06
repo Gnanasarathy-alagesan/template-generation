@@ -1,51 +1,49 @@
+window.onload = function() {
+    // Enable the upload button once the page loads
+    document.getElementById("uploadBtn").disabled = false;
+}
+
 function srcFileUpload() {
 
-    console.log("uploading src file")
+    console.log("uploading src file");
       var formData = new FormData();
       var fileInput = document.getElementById('fileUpload');
 
       // Check if a file is present 
-      if (fileInput.files.length > 0) {
-          var file = fileInput.files[0];
-          formData.append('srcFile', file);
+      if (fileInput && fileInput.files && fileInput.files.length > 0) {
+
+          // Loop through the selected files and append them to FormData
+          for (var i = 0; i < fileInput.files.length; i++) {
+            var file = fileInput.files[i];
+            console.log("file:", file); // Log each file object for debugging
+            formData.append('srcFiles', file);
+        }
   
           // Perform AJAX request to upload file
           var xhr = new XMLHttpRequest();
           xhr.open('POST', '/upload', true);
-          console.log("uploading file ")
+          console.log("uploading file ");
   
           xhr.onload = function() {
               if (xhr.status === 200) {
-                console.log("success")
-                displaySuccessDialog("file-upload-msg", "File uploaded successfully")
-                  // File uploaded successfully
+                console.log("success");
+                displaySuccessDialog("file-upload-msg", "File(s) uploaded successfully");
+                enableNextButton('validateSrcBtn');
+                  // Files uploaded successfully
               } else {
                   // Error handling
-                  displayFailureDialog("file-upload-msg", "Error uploading file")
+                  displayFailureDialog("file-upload-msg", "Error uploading file(s)");
               }
           };
   
-          xhr.send(formData)
+          xhr.send(formData);
   
       } else {
           console.log('No file selected');
-          displayFailureDialog("file-upload-msg", "Source File Required")
+          displayFailureDialog("file-upload-msg", "Source File Required");
           return;
       }
     }
-
-function displaySuccessDialog(id, msg){
-    document.getElementById(id).style.display = "block";
-    document.getElementById(id).innerHTML = msg
-    document.getElementById(id).style.color = "green";
-    }
-
-function displayFailureDialog(id, msg){
-    document.getElementById(id).style.display = "block";
-    document.getElementById(id).innerHTML = msg;
-    document.getElementById(id).style.color = "red";
-    }
-
 
 function generateFiles() {
 
@@ -89,6 +87,7 @@ function validateSource() {
                 if (xhr.status === 200) {
                 console.log("success")
                 displaySuccessDialog("validate-source-msg", "Validation done")
+                enableNextButton('prepareSrcBtn');
                     
                 } else {
                     displayFailureDialog("validate-source-msg", "Source file(s) missing")
@@ -98,3 +97,44 @@ function validateSource() {
             xhr.send()
     
     }
+
+function prepareSource() {
+
+    console.log("preparing source ")
+
+        var xhr = new XMLHttpRequest();
+
+        // Specify the type of request (GET) and the relative URL (e.g., '/api/data')
+        xhr.open('GET', '/prepare', true);
+
+        // Set up what happens when the request is done
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                console.log("source preparation success")
+                displaySuccessDialog("prepare-source-msg", "Source prepared successfully")
+                enableNextButton('generateTemplateBtn');
+                } else {
+                    console.log("source preparation Failed")
+                    displayFailureDialog("prepare-source-msg", "Source preparation Failed")
+            };
+        };
+
+        // Send the request
+        xhr.send();
+    }
+
+function displaySuccessDialog(id, msg){
+    document.getElementById(id).style.display = "block";
+    document.getElementById(id).innerHTML = msg
+    document.getElementById(id).style.color = "green";
+    }
+
+function displayFailureDialog(id, msg){
+    document.getElementById(id).style.display = "block";
+    document.getElementById(id).innerHTML = msg;
+    document.getElementById(id).style.color = "red";
+    }
+
+function enableNextButton(buttonId) {
+    document.getElementById(buttonId).disabled = false;
+}
