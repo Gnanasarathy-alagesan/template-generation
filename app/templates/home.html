@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Template Generator</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/home.css') }}">
-    <script src="{{ url_for('static',filename='js/home.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='/home.css') }}">
+    <script src="{{ url_for('static',filename='/home.js') }}"></script>
 </head>
 <body>
     <div class="container">
@@ -16,8 +16,14 @@
                 <label for="fileUpload">Upload Master File</label>
                 <input type="file" class="form-control-file" id="fileUpload" accept=".xlsx" multiple>
             </div>
-            <button type="button" class="btn btn-success" id="generateBtn" onclick="srcFileUpload(); return false;">Generate Files</button>
-            <div class="centerText" id="system-config-msg"></div>
+            <button type="button" class="btn btn-success" id="uploadBtn" onclick="srcFileUpload(); return false; disabled">Upload</button>
+            <div class="centerText" id="file-upload-msg"></div>
+            <button type="button" class="btn btn-success" id="validateSrcBtn" onclick="validateSource(); return false;" disabled>Validate source</button>
+            <div class="centerText" id="validate-source-msg"></div>
+            <button type="button" class="btn btn-success" id="prepareSrcBtn" onclick="prepareSource(); return false;" disabled>Prepare source</button>
+            <div class="centerText" id="prepare-source-msg"></div>
+            <button type="button" class="btn btn-success" id="generateTemplateBtn" onclick="generateFiles(); return false;" disabled>Generate templates</button>
+            <div class="centerText" id="generate-files-msg"></div>
         </form>
     </div>
 </body>
