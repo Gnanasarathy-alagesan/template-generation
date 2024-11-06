@@ -18,7 +18,7 @@ def intial_prep():
     master_df = pd.read_excel(source)
     master_df.columns = COLUMNS
     master_df["Full Name"] = master_df["First Name"] + ' ' + master_df["Last Name"]
-    master_df = master_df.map(lambda x: x.strip() if isinstance(x, str) else x)
+    master_df = master_df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
     return master_df
 
 
