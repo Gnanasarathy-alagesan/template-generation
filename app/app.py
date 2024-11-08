@@ -18,6 +18,7 @@ def home():
 # base_location = os.path.dirname(__file__).split('/template-generation/app/')[0]
 base_location = os.getcwd()
 SRC_FOLDER = f'{base_location}/source'
+os.makedirs(SRC_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = SRC_FOLDER
 
 # Global variable to store the DataFrame
