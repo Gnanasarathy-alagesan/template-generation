@@ -1,0 +1,16 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: f6c7c98f34846fa36288572eecebb1535c685714  # the latest stable version of Black
+    hooks:
+      - id: black
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: e437b7ed51d806a5bfaf922903a42f0a35de856a  # the latest stable version
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  - repo: https://github.com/asottile/reorder-python-imports
+    rev: 556c04ea754a9218a9c54868e355eb33486a76a2
+    hooks:
+      - id: reorder-python-imports

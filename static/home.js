@@ -9,7 +9,7 @@ function srcFileUpload() {
       var formData = new FormData();
       var fileInput = document.getElementById('fileUpload');
 
-      // Check if a file is present 
+      // Check if a file is present
       if (fileInput && fileInput.files && fileInput.files.length > 0) {
 
           // Loop through the selected files and append them to FormData
@@ -18,12 +18,12 @@ function srcFileUpload() {
             console.log("file:", file); // Log each file object for debugging
             formData.append('srcFiles', file);
         }
-  
+
           // Perform AJAX request to upload file
           var xhr = new XMLHttpRequest();
           xhr.open('POST', '/upload', true);
           console.log("uploading file ");
-  
+
           xhr.onload = function() {
               if (xhr.status === 200) {
                 console.log("success");
@@ -35,9 +35,9 @@ function srcFileUpload() {
                   displayFailureDialog("file-upload-msg", "Error uploading file(s)");
               }
           };
-  
+
           xhr.send(formData);
-  
+
       } else {
           console.log('No file selected');
           displayFailureDialog("file-upload-msg", "Source File Required");
@@ -82,20 +82,20 @@ function validateSource() {
             // Perform AJAX request to upload file
             var xhr = new XMLHttpRequest();
             xhr.open('GET', '/validate', true);
-    
+
             xhr.onload = function() {
                 if (xhr.status === 200) {
                 console.log("success")
                 displaySuccessDialog("validate-source-msg", "Validation done")
                 enableNextButton('prepareSrcBtn');
-                    
+
                 } else {
                     displayFailureDialog("validate-source-msg", "Source file(s) missing")
                 }
             };
-    
+
             xhr.send()
-    
+
     }
 
 function prepareSource() {
