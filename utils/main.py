@@ -1,12 +1,17 @@
-# importing packages
+# Standard library imports
 import os
 import sys
 
 import pandas as pd
 
+# Third-party imports
+
+# This allows importing modules located in the parent directory, even if they are outside the default module resolution paths.
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
+
+# Local application imports
 from constants.generic import *
 from constants.master import COLUMNS, LOCATION
 from utils.helper_util import *
@@ -15,13 +20,12 @@ from utils.form_u_prepare import FormU
 # getting base path
 base_location = os.getcwd()
 
-# assigning actual path to variables
 
-
-def intial_prep():
-    # copy paste from template folder to stage
-    os.makedirs(f"{base_location}/{SOURCE}", exist_ok=True)
-    source = base_location + f"/{SOURCE}/master.xlsx"
+def prepare_master() -> None:
+    """
+    Prepare Master data
+    """
+    source = os.path.join(base_location, SOURCE, "master.xlsx")
     master_df = pd.read_excel(source)
     master_df.columns = COLUMNS
     master_df["Full Name"] = master_df["First Name"] + " " + master_df["Last Name"]
@@ -29,8 +33,12 @@ def intial_prep():
     return master_df
 
 
-def prepare_form_u(master_df):
-    # Form U
+def prepare_form_u(master_df: pd.DataFrame) -> None:
+    """
+    Prepare Form U for each locations
+    Args:
+        master_df (DataFrame): Prepared Master Data
+    """
     for location in master_df[LOCATION].unique():
         location = location.upper()
         form_u = FormU(

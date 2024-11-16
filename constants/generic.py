@@ -1,4 +1,4 @@
-# constants.py
+# Generic Variables
 STAGE = "stage"
 OUTPUT = "output"
 SOURCE = "source"

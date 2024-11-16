@@ -1,3 +1,4 @@
+# Standard library imports
 import os
 import sys
 
@@ -6,11 +7,15 @@ from flask import render_template
 from flask import request
 from werkzeug.utils import secure_filename
 
+# Third-party imports
+
+# This allows importing modules located in the parent directory, even if they are outside the default module resolution paths.
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
-from utils.main import intial_prep, prepare_form_u
+# Local application imports
+from utils.main import prepare_master, prepare_form_u
 from constants.generic import *
 
 app = Flask(__name__)
@@ -21,9 +26,9 @@ def home():
     return render_template("home.html")
 
 
-# base_location = os.path.dirname(__file__).split('/template-generation/app/')[0]
+# Preparing source location
 base_location = os.getcwd()
-SRC_FOLDER = f"{base_location}/source"
+SRC_FOLDER = os.path.join(base_location, "source")
 os.makedirs(SRC_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = SRC_FOLDER
 
@@ -33,6 +38,9 @@ master_df = None
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
+    """
+    Uploadind the source files
+    """
     try:
         # Handle file upload
         if "srcFiles" not in request.files:
@@ -59,6 +67,9 @@ def upload_file():
 
 @app.route("/generate", methods=["GET"])
 def generate_file():
+    """
+    To prepare templates
+    """
     try:
         global master_df
         prepare_form_u(master_df)
@@ -71,6 +82,9 @@ def generate_file():
 
 @app.route("/validate", methods=["GET"])
 def validate_src():
+    """
+    Check all necessary sources are uploaded for preparing templates
+    """
     try:
         directory = app.config["UPLOAD_FOLDER"]
 
@@ -102,9 +116,12 @@ def validate_src():
 
 @app.route("/prepare", methods=["GET"])
 def prepare_source():
+    """
+    Prepare master_df globally with transformation applied
+    """
     try:
         global master_df
-        master_df = intial_prep()
+        master_df = prepare_master()
         return "Source prepared successfully", 200
 
     except Exception as e:

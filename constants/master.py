@@ -1,3 +1,4 @@
+# Column Rename
 COLUMNS = [
     "Co-Worker Type",
     "Workday Emp Id",
@@ -12,6 +13,7 @@ COLUMNS = [
     "New Practice",
     "Gender",
 ]
+
 office = {"CHENNAI": "CHE", "HYDERABAD": "HYD", "BANGALORE": "BLR"}
 
 LOCATION = "Location"
