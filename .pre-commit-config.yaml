@@ -14,3 +14,10 @@ repos:
     rev: 556c04ea754a9218a9c54868e355eb33486a76a2
     hooks:
       - id: reorder-python-imports
+
+  - repo: https://github.com/prettier/pre-commit
+    rev: v2.0.0 # Use the latest release or your preferred version
+    hooks:
+      - id: prettier
+        args: ["--write"]
+        files: \.(html|css|js)$
